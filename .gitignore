@@ -1,6 +1,11 @@
 # Compiled class file
 *.class
+.DS_Store
+#folder
+target/
+.mvn/
 
+*.iml
 # Log file
 *.log
 

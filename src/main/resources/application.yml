@@ -1,0 +1,22 @@
+logging:
+  level:
+    root: INFO
+    io.eventuate.tram: DEBUG
+
+spring:
+  application:
+    name: customer
+  profiles:
+    active:
+      - jdbc
+      - default
+  config:
+    import: "optional:configserver:http://localhost:8020/configuration/config"
+  autoconfigure:
+    exclude: "org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration"
+#    username: user
+#    password: secret
+#  cloud:
+#    config:
+#      fail-fast: true
+#      retry:
