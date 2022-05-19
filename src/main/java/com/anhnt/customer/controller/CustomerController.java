@@ -1,8 +1,8 @@
 package com.anhnt.customer.controller;
 
+import com.anhnt.common.domain.customer.request.CustomerCreateRequest;
+import com.anhnt.common.domain.customer.request.CustomerUpdateRequest;
 import com.anhnt.customer.config.annotation.LogAround;
-import com.anhnt.customer.controller.request.CustomerCreateRequest;
-import com.anhnt.customer.controller.request.CustomerUpdateRequest;
 import com.anhnt.customer.repository.CustomerRepository;
 import com.anhnt.customer.repository.entity.CustomerEntity;
 import com.anhnt.customer.service.CustomerService;
