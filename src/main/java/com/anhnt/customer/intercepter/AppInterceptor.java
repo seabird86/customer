@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Component
 @Slf4j
-public class GeneralInterceptor implements HandlerInterceptor {
+public class AppInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){

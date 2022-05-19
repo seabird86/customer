@@ -11,7 +11,7 @@ spring:
       - jdbc
       - default
   config:
-    import: "optional:configserver:http://localhost:8020/configuration/config"
+    import: "optional:configserver:http://localhost:7000/configuration/config"
   autoconfigure:
     exclude: "org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration"
 #    username: user

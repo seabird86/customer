@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.OffsetTime;
 
 @Getter
 @Setter
@@ -16,7 +18,11 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @ToString
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class CreateCustomerRequest {
+public class CustomerCreateRequest {
+  private String username;
   private String name;
-  private BigDecimal creditLimit;
+  private String mobile;
+  private LocalDate dateOfBirth;
+  private Instant verifiedDatetime;
+  private OffsetTime availableTime;
 }

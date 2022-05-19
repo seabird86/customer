@@ -1,14 +1,17 @@
 package com.anhnt.customer.controller;
 
-import com.anhnt.customer.controller.request.CreateCustomerRequest;
+import com.anhnt.customer.annotation.LogAround;
+import com.anhnt.customer.controller.request.CustomerCreateRequest;
+import com.anhnt.customer.controller.request.CustomerUpdateRequest;
+import com.anhnt.customer.repository.CustomerRepository;
 import com.anhnt.customer.repository.entity.CustomerEntity;
 import com.anhnt.customer.service.CustomerService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -17,23 +20,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class CustomerController {
 
   private CustomerService customerService;
+  private CustomerRepository customerRepository;
 
-  @RequestMapping(value = "/customers", method = RequestMethod.POST)
-  public Long createCustomer(@RequestBody CreateCustomerRequest createCustomerRequest) {
-    CustomerEntity customer = customerService.createCustomer(createCustomerRequest);
-    return customer.getId();
+  @PostMapping(value = "/customers")
+  @LogAround(message = "Create customer")
+  public Long createCustomer(@RequestBody CustomerCreateRequest request) {
+    CustomerEntity entity = customerService.createCustomer(request);
+    return entity.getId();
   }
 
-  @RequestMapping(value = "/customers/{id}", method = RequestMethod.PUT)
-  public Long updateCustomer(@PathVariable Long id, @RequestBody CreateCustomerRequest createCustomerRequest) {
-    log.info("Add customer");
-
-    CustomerEntity customer = customerService.updateCustomer(id,createCustomerRequest);
-    return customer.getId();
+  @PutMapping(value = "/customers/{id}")
+  @LogAround(message = "Update customer")
+  public void updateCustomer(@PathVariable Long id, @RequestBody CustomerUpdateRequest request) {
+    CustomerEntity entity = customerRepository.findById(id).get();
+    customerService.updateCustomer(request,entity);
   }
-
-//  @RequestMapping(value = "/customers/make-snapshot", method = RequestMethod.POST)
-//  public String makeSnapshot() {
-//    return JSonMapper.toJson(domainSnapshotExportService.exportSnapshots());
-//  }
 }
