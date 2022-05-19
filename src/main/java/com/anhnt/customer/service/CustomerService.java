@@ -2,7 +2,7 @@ package com.anhnt.customer.service;
 
 import com.anhnt.customer.controller.request.CustomerCreateRequest;
 import com.anhnt.customer.controller.request.CustomerUpdateRequest;
-import com.anhnt.customer.mapper.CustomerMapper;
+import com.anhnt.customer.service.mapper.CustomerMapper;
 import com.anhnt.customer.repository.CustomerRepository;
 import com.anhnt.customer.repository.entity.CustomerEntity;
 import lombok.AllArgsConstructor;

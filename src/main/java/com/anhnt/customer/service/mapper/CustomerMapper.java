@@ -1,4 +1,4 @@
-package com.anhnt.customer.mapper;
+package com.anhnt.customer.service.mapper;
 
 import com.anhnt.customer.controller.request.CustomerCreateRequest;
 import com.anhnt.customer.repository.entity.CustomerEntity;

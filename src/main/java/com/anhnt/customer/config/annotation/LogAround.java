@@ -1,4 +1,4 @@
-package com.anhnt.customer.annotation;
+package com.anhnt.customer.config.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

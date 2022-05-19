@@ -1,6 +1,6 @@
-package com.anhnt.customer.annotation.implement;
+package com.anhnt.customer.config.annotation.implement;
 
-import com.anhnt.customer.annotation.LogAround;
+import com.anhnt.customer.config.annotation.LogAround;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -17,12 +17,12 @@ import java.lang.reflect.Method;
 @Slf4j
 public class LoggerAspect {
 
-    @Before("within(com.anhnt..*) && @annotation(com.anhnt.customer.annotation.LogAround)")
+    @Before("within(com.anhnt..*) && @annotation(com.anhnt.customer.config.annotation.LogAround)")
     public void before(JoinPoint joinPoint) throws Throwable {
         log.info("===== Begin: " + this.getMessage(joinPoint) + " =====");
     }
 
-    @AfterReturning("within(com.anhnt..*) && @annotation(com.anhnt.customer.annotation.LogAround)")
+    @AfterReturning("within(com.anhnt..*) && @annotation(com.anhnt.customer.config.annotation.LogAround)")
     public void afterReturning(JoinPoint joinPoint) throws Throwable {
         log.info("===== End: [Return] " + this.getMessage(joinPoint) + " =====");
     }
@@ -32,7 +32,7 @@ public class LoggerAspect {
 //        log.info("===== End: =====");
 //    }
 
-    @AfterThrowing(value = "within(com.anhnt..*) && @annotation(com.anhnt.customer.annotation.LogAround)", throwing="e")
+    @AfterThrowing(value = "within(com.anhnt..*) && @annotation(com.anhnt.customer.config.annotation.LogAround)", throwing="e")
     public void afterThrowing(JoinPoint joinPoint, Exception e) throws Throwable {
 //        log.error("There is an error occur in process", e);
         log.info("===== End [Exception] " + this.getMessage(joinPoint) + " =====");

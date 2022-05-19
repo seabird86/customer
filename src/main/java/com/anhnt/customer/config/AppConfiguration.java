@@ -1,6 +1,6 @@
 package com.anhnt.customer.config;
 
-import com.anhnt.customer.intercepter.AppInterceptor;
+import com.anhnt.customer.config.intercepter.AppInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
