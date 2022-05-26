@@ -12,8 +12,7 @@ spring:
       - default
   config:
     import: "optional:configserver:http://localhost:7000/configuration/config"
-  autoconfigure:
-    exclude: "org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration"
+
 #    username: user
 #    password: secret
 #  cloud:

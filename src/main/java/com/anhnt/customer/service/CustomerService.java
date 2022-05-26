@@ -2,15 +2,17 @@ package com.anhnt.customer.service;
 
 import com.anhnt.common.domain.customer.request.CustomerCreateRequest;
 import com.anhnt.common.domain.customer.request.CustomerUpdateRequest;
+import com.anhnt.common.domain.payment.request.TransactionCreateParam;
 import com.anhnt.common.domain.payment.request.TransactionCreateRequest;
 import com.anhnt.customer.client.PaymentClient;
-import com.anhnt.customer.service.mapper.CustomerMapper;
 import com.anhnt.customer.repository.CustomerRepository;
 import com.anhnt.customer.repository.entity.CustomerEntity;
+import com.anhnt.customer.service.mapper.CustomerMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -33,7 +35,10 @@ public class CustomerService {
     txn.setPayeeId(entity.getId());
     txn.setPayerId(entity.getId());
     txn.setAmount(new BigDecimal(10));
-    Long value = paymentClient.createTransaction(txn);
+    TransactionCreateParam param = new TransactionCreateParam();
+    param.setServiceId(123);
+    param.setDescription("description value");
+    Long value = paymentClient.createTransaction(param, txn);
     log.info("value",value);
     return entity;
   }
