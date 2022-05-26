@@ -11,6 +11,7 @@ import com.anhnt.customer.service.factory.ResponseBody;
 import com.anhnt.customer.service.factory.ResponseFactory;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.AllArgsConstructor;
@@ -32,7 +33,7 @@ public class CustomerController {
   private ResponseFactory responseFactory;
 
   @Operation(summary = "Create Customer", responses = {
-          @ApiResponse(responseCode = "404", description = "Not found", content = @Content(examples=@())),
+          @ApiResponse(responseCode = "404", description = "Not found", content = @Content(examples = {@ExampleObject(value="hello",description = "description")})),
           @ApiResponse(responseCode = "401", description = "Authentication Failure", content = @Content(schema = @Schema(hidden = true))) })
   @LogAround(message = "Create customer")
   @PostMapping(value = "/customers")

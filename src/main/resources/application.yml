@@ -1,8 +1,3 @@
-logging:
-  level:
-    root: INFO
-    io.eventuate.tram: DEBUG
-
 spring:
   application:
     name: customer
@@ -11,10 +6,7 @@ spring:
       - jdbc
       - default
   config:
-    import: "optional:configserver:http://localhost:7000/configuration/config"
-
-#    username: user
-#    password: secret
+    import: "optional:configserver:http://ANHNT:ANHNT-PASS@localhost:7000/configuration/config"
 #  cloud:
 #    config:
 #      fail-fast: true
