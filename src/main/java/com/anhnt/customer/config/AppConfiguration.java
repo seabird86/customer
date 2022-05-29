@@ -63,8 +63,8 @@ public class AppConfiguration implements WebMvcConfigurer {
                 Schema schema = new ObjectSchema()
                         .type("object")
                         .addProperty("data",schemas.get(resolvedSchema.schema.getName()))
-                        .name("ResponseBody<%s>".formatted(resolvedSchema.schema.getName()));
-                schemas.put("ResponseBody<%s>".formatted(resolvedSchema.schema.getName()),schema);
+                        .name("BodyEntity<%s>".formatted(resolvedSchema.schema.getName()));
+                schemas.put("BodyEntity<%s>".formatted(resolvedSchema.schema.getName()),schema);
                 responses.addApiResponse("Success",new ApiResponse().content(new Content().addMediaType("application/json",new MediaType().schema(new ObjectSchema().$ref(schema.getName())))));
             }
             return operation;

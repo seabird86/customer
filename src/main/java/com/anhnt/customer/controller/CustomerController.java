@@ -3,12 +3,12 @@ package com.anhnt.customer.controller;
 import com.anhnt.common.domain.customer.request.CustomerCreateRequest;
 import com.anhnt.common.domain.customer.request.CustomerUpdateRequest;
 import com.anhnt.common.domain.customer.response.CustomerCreateResponse;
+import com.anhnt.common.domain.response.BodyEntity;
+import com.anhnt.common.domain.response.ResponseFactory;
 import com.anhnt.customer.config.annotation.LogAround;
 import com.anhnt.customer.repository.CustomerRepository;
 import com.anhnt.customer.repository.entity.CustomerEntity;
 import com.anhnt.customer.service.CustomerService;
-import com.anhnt.customer.service.factory.ResponseBody;
-import com.anhnt.customer.service.factory.ResponseFactory;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -30,16 +30,15 @@ public class CustomerController {
 
   private CustomerService customerService;
   private CustomerRepository customerRepository;
-  private ResponseFactory responseFactory;
 
   @Operation(summary = "Create Customer", responses = {
           @ApiResponse(responseCode = "404", description = "Not found", content = @Content(examples = {@ExampleObject(value="hello",description = "description")})),
           @ApiResponse(responseCode = "401", description = "Authentication Failure", content = @Content(schema = @Schema(hidden = true))) })
   @LogAround(message = "Create customer")
   @PostMapping(value = "/customers")
-  public ResponseEntity<ResponseBody<CustomerCreateResponse>> createCustomer(@RequestBody CustomerCreateRequest request) {
+  public ResponseEntity<BodyEntity<CustomerCreateResponse>> createCustomer(@RequestBody CustomerCreateRequest request) {
     CustomerEntity entity = customerService.createCustomer(request);
-    return responseFactory.success(new CustomerCreateResponse(entity.getId()));
+    return ResponseFactory.success(new CustomerCreateResponse(entity.getId()));
   }
 
   @PutMapping(value = "/customers/{id}")
