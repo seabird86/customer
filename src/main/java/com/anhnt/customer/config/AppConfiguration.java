@@ -1,5 +1,7 @@
 package com.anhnt.customer.config;
 
+import com.anhnt.common.domain.response.ConfigurationCache;
+import com.anhnt.customer.client.ConfigurationClient;
 import com.anhnt.customer.config.intercepter.AppInterceptor;
 import io.swagger.v3.core.converter.AnnotatedType;
 import io.swagger.v3.core.converter.ModelConverters;
@@ -19,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -33,6 +36,7 @@ import java.util.Map;
 
 @Configuration
 public class AppConfiguration implements WebMvcConfigurer {
+
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -65,10 +69,9 @@ public class AppConfiguration implements WebMvcConfigurer {
                         .addProperty("data",schemas.get(resolvedSchema.schema.getName()))
                         .name("BodyEntity<%s>".formatted(resolvedSchema.schema.getName()));
                 schemas.put("BodyEntity<%s>".formatted(resolvedSchema.schema.getName()),schema);
-                responses.addApiResponse("Success",new ApiResponse().content(new Content().addMediaType("application/json",new MediaType().schema(new ObjectSchema().$ref(schema.getName())))));
+                responses.addApiResponse("2xx",new ApiResponse().content(new Content().addMediaType("application/json",new MediaType().schema(new ObjectSchema().$ref(schema.getName())))));
             }
             return operation;
         };
     }
-
 }

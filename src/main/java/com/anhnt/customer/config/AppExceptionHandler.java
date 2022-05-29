@@ -1,12 +1,14 @@
-package com.anhnt.customer.config.exception;
+package com.anhnt.customer.config;
 
-import com.anhnt.common.domain.apigateway.response.ErrorEntityConstant;
+import com.anhnt.common.domain.response.ErrorFactory.CustomerError;
 import com.anhnt.common.domain.exception.AbstractException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import java.util.List;
 
 // https://www.baeldung.com/rest-api-error-handling-best-practices
 // https://google.github.io/styleguide/jsoncstyleguide.xml
@@ -17,7 +19,7 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity handleException(Exception e) {
-        return ErrorEntityConstant.INTERNAL_SERVER_ERROR.withParams(e.getMessage()).toResponseEntity();
+        return CustomerError.INTERNAL_SERVER_ERROR.apply(List.of(e.getMessage())).toResponseEntity();
     }
 
     @ExceptionHandler(AbstractException.class)

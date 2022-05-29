@@ -1,13 +1,12 @@
-package com.anhnt.customer.config;
+package com.anhnt.customer.client.config;
 
 import feign.auth.BasicAuthRequestInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
-public class ClientConfiguration {
+public class ConfigurationClientConfiguration {
     @Bean
     public BasicAuthRequestInterceptor basicAuthRequestInterceptor() {
-        return new BasicAuthRequestInterceptor("anhnt", "anhnt");
+        return new BasicAuthRequestInterceptor("ANHNT", "ANHNT-PASS");
     }
 }
