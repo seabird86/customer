@@ -1,14 +1,17 @@
 package com.anhnt.customer.controller;
 
-import com.anhnt.common.domain.customer.request.CustomerCreateRequest;
-import com.anhnt.common.domain.customer.request.CustomerUpdateRequest;
-import com.anhnt.common.domain.customer.response.CustomerCreateResponse;
+import com.anhnt.common.domain.customer.request.CreateCustomerRequest;
+import com.anhnt.common.domain.customer.request.CustomerMessageCreateRequest;
+import com.anhnt.common.domain.customer.request.CustomerMessageCreateResponse;
+import com.anhnt.common.domain.customer.request.UpdateCustomerRequest;
+import com.anhnt.common.domain.customer.response.CreateCustomerResponse;
 import com.anhnt.common.domain.response.BodyEntity;
 import com.anhnt.common.domain.response.ResponseFactory;
 import com.anhnt.customer.config.annotation.LogAround;
 import com.anhnt.customer.repository.CustomerRepository;
 import com.anhnt.customer.repository.entity.CustomerEntity;
 import com.anhnt.customer.service.CustomerService;
+import com.anhnt.customer.service.mapper.CustomerMessageMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -30,20 +33,30 @@ public class CustomerController {
 
   private CustomerService customerService;
   private CustomerRepository customerRepository;
+  private CustomerMessageMapper customerMessageMapper;
 
   @Operation(summary = "Create Customer", responses = {
           @ApiResponse(responseCode = "404", description = "Not found", content = @Content(examples = {@ExampleObject(value="hello",description = "description")})),
           @ApiResponse(responseCode = "401", description = "Authentication Failure", content = @Content(schema = @Schema(hidden = true))) })
   @LogAround(message = "Create customer")
   @PostMapping(value = "/customers")
-  public ResponseEntity<BodyEntity<CustomerCreateResponse>> createCustomer(@RequestBody CustomerCreateRequest request) {
+  public ResponseEntity<BodyEntity<CreateCustomerResponse>> createCustomer(@RequestBody CreateCustomerRequest request) {
     CustomerEntity entity = customerService.createCustomer(request);
-    return ResponseFactory.success(new CustomerCreateResponse(entity.getId()));
+    return ResponseFactory.success(new CreateCustomerResponse(entity.getId()));
+  }
+
+
+  @Operation(summary = "Add messages")
+  @LogAround(message = "Add messages")
+  @PostMapping(value = "/messages")
+  public ResponseEntity<BodyEntity<CustomerMessageCreateResponse>> addMessage(@RequestBody CustomerMessageCreateRequest request) {
+    request.setName("Response");
+    return ResponseFactory.success(customerMessageMapper.toCustomerMessageCreateResponse(request));
   }
 
   @PutMapping(value = "/customers/{id}")
   @LogAround(message = "Update customer")
-  public void updateCustomer(@PathVariable Long id, @RequestBody CustomerUpdateRequest request) {
+  public void updateCustomer(@PathVariable Long id, @RequestBody UpdateCustomerRequest request) {
     CustomerEntity entity = customerRepository.findById(id).get();
     customerService.updateCustomer(request,entity);
   }

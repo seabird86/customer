@@ -1,7 +1,7 @@
 package com.anhnt.customer.service;
 
-import com.anhnt.common.domain.customer.request.CustomerCreateRequest;
-import com.anhnt.common.domain.customer.request.CustomerUpdateRequest;
+import com.anhnt.common.domain.customer.request.CreateCustomerRequest;
+import com.anhnt.common.domain.customer.request.UpdateCustomerRequest;
 import com.anhnt.common.domain.payment.request.TransactionCreateParam;
 import com.anhnt.common.domain.payment.request.TransactionCreateRequest;
 import com.anhnt.customer.client.PaymentClient;
@@ -28,7 +28,7 @@ public class CustomerService {
 
 
   @Transactional
-  public CustomerEntity createCustomer(CustomerCreateRequest request) {
+  public CustomerEntity createCustomer(CreateCustomerRequest request) {
     CustomerEntity entity = customerMapper.toCustomerEntity(request);
     entity = customerRepository.save(entity);
     TransactionCreateRequest txn = new TransactionCreateRequest();
@@ -43,7 +43,7 @@ public class CustomerService {
     return entity;
   }
 
-  public CustomerEntity updateCustomer(CustomerUpdateRequest request, CustomerEntity entity) {
+  public CustomerEntity updateCustomer(UpdateCustomerRequest request, CustomerEntity entity) {
     BeanUtils.copyProperties(request,entity);
     entity.setUpdatedDatetime(Instant.now());
     return customerRepository.save(entity);

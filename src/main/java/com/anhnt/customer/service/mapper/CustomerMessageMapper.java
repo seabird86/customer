@@ -7,6 +7,6 @@ import com.anhnt.customer.repository.entity.CustomerEntity;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public abstract class CustomerMapper {
-    public abstract CustomerEntity toCustomerEntity(CreateCustomerRequest request);
+public abstract class CustomerMessageMapper {
+    public abstract CustomerMessageCreateResponse toCustomerMessageCreateResponse(CustomerMessageCreateRequest request);
 }
