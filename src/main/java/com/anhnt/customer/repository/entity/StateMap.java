@@ -22,30 +22,12 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.OffsetTime;
 
-@Entity
-@Table(name="customer")
-@Access(AccessType.FIELD)
 @Getter
 @Setter
 @NoArgsConstructor
-public class CustomerEntity {
+public class StateMap {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
-  private String username;
-  private String name;
-  private String mobile;
-  private Boolean active = Boolean.TRUE;
-  private LocalDate dateOfBirth;
-  private Instant createdDatetime = Instant.now();
-  private Instant updatedDatetime = Instant.now();
-  private Instant verifiedDatetime;
-  private OffsetTime availableTime;
-  private BigDecimal balance;
+  private String txnName;
+  private String status;
   
-  @Enumerated(EnumType.ORDINAL)
-  private CustomerStatus status = CustomerStatus.DRAFT;
-  @Version
-  private Long version;
 }

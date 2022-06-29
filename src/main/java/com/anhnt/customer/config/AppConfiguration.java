@@ -13,6 +13,8 @@ import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.media.StringSchema;
 import io.swagger.v3.oas.models.responses.ApiResponse;
 import io.swagger.v3.oas.models.responses.ApiResponses;
+
+import org.apache.kafka.clients.admin.NewTopic;
 import org.springdoc.core.OpenAPIService;
 import org.springdoc.core.SpringDocUtils;
 import org.springdoc.core.customizers.OpenApiCustomiser;
@@ -21,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -74,4 +77,13 @@ public class AppConfiguration implements WebMvcConfigurer {
             return operation;
         };
     }
+
+    @Bean
+    public NewTopic topic() {
+        return TopicBuilder.name("CreateTransaction")
+                .partitions(10)
+                .replicas(1)
+                .build();
+    }
+
 }
