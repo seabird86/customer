@@ -18,6 +18,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(name="payment",url="${feign.client.config.payment.url}",configuration = ConfigurationClientConfiguration.class)
 public interface PaymentClient {
+
+    @PostMapping(value = "/customers/{userId}/first-transaction", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    BodyEntity<TryCreateTransactionResponse> tryFirstTransaction(@RequestParam Long userId, @SpringQueryMap TransactionCreateParam param, @RequestBody TransactionCreateRequest createOrderRequest);
+
+    @PutMapping(value = "/customers/{userId}/first-transaction", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    BodyEntity<ConfirmCreateTransactionResponse> confirmFirstTransaction(@RequestParam Long userId);
+
+    @DeleteMapping(value = "/customers/{userId}/first-transaction", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    BodyEntity<CancelCreateTransactionResponse> cancelFirstTransaction(@RequestParam Long userId);
+
+
     @PostMapping(value = "/transactions", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     BodyEntity<TryCreateTransactionResponse> tryCreateTransaction(@SpringQueryMap TransactionCreateParam param, @RequestBody TransactionCreateRequest createOrderRequest);
 

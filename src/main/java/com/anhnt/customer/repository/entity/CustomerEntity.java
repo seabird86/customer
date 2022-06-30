@@ -1,8 +1,9 @@
 package com.anhnt.customer.repository.entity;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.OffsetTime;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -17,10 +18,9 @@ import javax.persistence.Version;
 
 import com.anhnt.common.domain.customer.constant.CustomerStatus;
 
-import java.math.BigDecimal;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.OffsetTime;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name="customer")
@@ -36,7 +36,6 @@ public class CustomerEntity {
   private String username;
   private String name;
   private String mobile;
-  private Boolean active = Boolean.TRUE;
   private LocalDate dateOfBirth;
   private Instant createdDatetime = Instant.now();
   private Instant updatedDatetime = Instant.now();
@@ -44,8 +43,8 @@ public class CustomerEntity {
   private OffsetTime availableTime;
   private BigDecimal balance;
   
-  @Enumerated(EnumType.ORDINAL)
-  private CustomerStatus status = CustomerStatus.DRAFT;
+  @Enumerated(EnumType.STRING)
+  private CustomerStatus status = CustomerStatus.RESERVED;
   @Version
   private Long version;
 }
